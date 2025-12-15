@@ -46,9 +46,14 @@ collections:
     fields:
       - { name: title, label: Title, widget: string }
       - { name: description, label: Short Description, widget: text }
-      - { name: duration, label: Duration (e.g., "2 Nights / 3 Days"), widget: string }
+      - name: duration
+        label: "Duration (e.g. 2 Nights / 3 Days)"
+        widget: string
       - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
-      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - name: price
+        label: "Starting Price (EGP)"
+        widget: number
+        value_type: int
       - { name: currency, label: Currency, widget: string, default: EGP }
       - { name: image, label: Main Image, widget: image }
       - name: gallery
@@ -61,7 +66,7 @@ collections:
         widget: list
         field: { name: highlight, widget: string }
       - name: included
-        label: What's Included
+        label: "What's Included"
         widget: list
         field: { name: item, widget: string }
       - name: notIncluded
@@ -99,7 +104,10 @@ collections:
       - { name: description, label: Short Description, widget: text }
       - { name: duration, label: Duration, widget: string }
       - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
-      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - name: price
+        label: "Starting Price (EGP)"
+        widget: number
+        value_type: int
       - { name: currency, label: Currency, widget: string, default: EGP }
       - { name: image, label: Main Image, widget: image }
       - name: gallery
@@ -113,7 +121,7 @@ collections:
         widget: list
         field: { name: highlight, widget: string }
       - name: included
-        label: What's Included
+        label: "What's Included"
         widget: list
         field: { name: item, widget: string }
       - name: notIncluded
@@ -135,7 +143,10 @@ collections:
         required: false
         fields:
           - { name: name, label: Cabin Type Name, widget: string }
-          - { name: price, label: Price (EGP), widget: number, value_type: int }
+          - name: price
+            label: "Price (EGP)"
+            widget: number
+            value_type: int
           - { name: description, label: Description, widget: string }
       - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
       - { name: body, label: Detailed Description, widget: markdown }
@@ -152,7 +163,10 @@ collections:
       - { name: description, label: Short Description, widget: text }
       - { name: duration, label: Duration, widget: string }
       - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
-      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - name: price
+        label: "Starting Price (EGP)"
+        widget: number
+        value_type: int
       - { name: currency, label: Currency, widget: string, default: EGP }
       - { name: image, label: Main Image, widget: image }
       - name: gallery
@@ -166,7 +180,7 @@ collections:
         widget: list
         field: { name: highlight, widget: string }
       - name: included
-        label: What's Included
+        label: "What's Included"
         widget: list
         field: { name: item, widget: string }
       - name: notIncluded
@@ -189,4 +203,3 @@ collections:
         field: { name: date, widget: string }
       - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
       - { name: body, label: Detailed Description, widget: markdown }
-

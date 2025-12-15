@@ -20,7 +20,7 @@ const packagesCollection = defineCollection({
       description: z.string(),
     })),
     featured: z.boolean().default(false),
-    category: z.enum(['short', 'medium', 'long', 'cruise', 'group']),
+    category: z.enum(['short', 'medium', 'long']).optional(),
     order: z.number().default(0),
   }),
 });
