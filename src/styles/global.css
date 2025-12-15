@@ -44,13 +44,19 @@
   }
 
   .animate-on-scroll {
-    @apply opacity-0 translate-y-8;
-    animation: scrollFadeIn 0.8s ease-out forwards;
-    animation-play-state: paused;
+    @apply opacity-100;
   }
   
-  .animate-on-scroll.is-visible {
-    animation-play-state: running;
+  @media (prefers-reduced-motion: no-preference) {
+    .js .animate-on-scroll {
+      @apply opacity-0 translate-y-8;
+      animation: scrollFadeIn 0.8s ease-out forwards;
+      animation-play-state: paused;
+    }
+    
+    .js .animate-on-scroll.is-visible {
+      animation-play-state: running;
+    }
   }
 
   .form-input {

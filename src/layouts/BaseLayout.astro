@@ -93,8 +93,8 @@ const isRTL = lang === 'ar';
     
     <slot name="head" />
     
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <!-- Add JS class for progressive enhancement -->
+    <script is:inline>document.documentElement.classList.add('js');</script>
     
     <!-- RTL Styles -->
     {isRTL && (
@@ -137,17 +137,6 @@ const isRTL = lang === 'ar';
       document.querySelectorAll('.animate-on-scroll').forEach(el => {
         observer.observe(el);
       });
-      
-      // Netlify Identity redirect after login
-      if (window.netlifyIdentity) {
-        window.netlifyIdentity.on("init", user => {
-          if (!user) {
-            window.netlifyIdentity.on("login", () => {
-              document.location.href = "/admin/";
-            });
-          }
-        });
-      }
     </script>
   </body>
 </html>

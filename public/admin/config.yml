@@ -5,8 +5,8 @@ backend:
 media_folder: public/images
 public_folder: /images
 
-site_url: https://travelwithpola.netlify.app
-display_url: https://travelwithpola.netlify.app
+site_url: https://chic-tapioca-6a40fe.netlify.app
+display_url: https://chic-tapioca-6a40fe.netlify.app
 logo_url: /images/logo.svg
 
 collections:
@@ -22,16 +22,41 @@ collections:
           - { name: tagline, label: Tagline, widget: string }
           - { name: email, label: Email, widget: string }
           - { name: phone, label: Phone, widget: string }
-          - { name: whatsapp, label: WhatsApp Number, widget: string, required: false }
+          - {
+              name: whatsapp,
+              label: WhatsApp Number,
+              widget: string,
+              required: false,
+            }
           - { name: address, label: Address, widget: string }
           - name: socialLinks
             label: Social Links
             widget: object
             fields:
-              - { name: facebook, label: Facebook URL, widget: string, required: false }
-              - { name: instagram, label: Instagram URL, widget: string, required: false }
-              - { name: twitter, label: Twitter URL, widget: string, required: false }
-              - { name: youtube, label: YouTube URL, widget: string, required: false }
+              - {
+                  name: facebook,
+                  label: Facebook URL,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: instagram,
+                  label: Instagram URL,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: twitter,
+                  label: Twitter URL,
+                  widget: string,
+                  required: false,
+                }
+              - {
+                  name: youtube,
+                  label: YouTube URL,
+                  widget: string,
+                  required: false,
+                }
           - { name: heroTitle, label: Hero Title, widget: string }
           - { name: heroSubtitle, label: Hero Subtitle, widget: text }
           - { name: heroImage, label: Hero Image, widget: image }
@@ -49,7 +74,13 @@ collections:
       - name: duration
         label: "Duration (e.g. 2 Nights / 3 Days)"
         widget: string
-      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - {
+          name: nights,
+          label: Number of Nights,
+          widget: number,
+          value_type: int,
+          min: 1,
+        }
       - name: price
         label: "Starting Price (EGP)"
         widget: number
@@ -78,10 +109,21 @@ collections:
         label: Day by Day Itinerary
         widget: list
         fields:
-          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - {
+              name: day,
+              label: Day Number,
+              widget: number,
+              value_type: int,
+              min: 1,
+            }
           - { name: title, label: Day Title, widget: string }
           - { name: description, label: Day Description, widget: text }
-      - { name: featured, label: Featured Package, widget: boolean, default: false }
+      - {
+          name: featured,
+          label: Featured Package,
+          widget: boolean,
+          default: false,
+        }
       - name: category
         label: Category
         widget: select
@@ -89,7 +131,13 @@ collections:
           - { label: "Short (1-2 nights)", value: short }
           - { label: "Medium (3-4 nights)", value: medium }
           - { label: "Long (5+ nights)", value: long }
-      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - {
+          name: order,
+          label: Display Order,
+          widget: number,
+          value_type: int,
+          default: 0,
+        }
       - { name: body, label: Detailed Description, widget: markdown }
 
   # Nile Cruises
@@ -103,7 +151,13 @@ collections:
       - { name: title, label: Title, widget: string }
       - { name: description, label: Short Description, widget: text }
       - { name: duration, label: Duration, widget: string }
-      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - {
+          name: nights,
+          label: Number of Nights,
+          widget: number,
+          value_type: int,
+          min: 1,
+        }
       - name: price
         label: "Starting Price (EGP)"
         widget: number
@@ -133,10 +187,21 @@ collections:
         label: Sailing Itinerary
         widget: list
         fields:
-          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - {
+              name: day,
+              label: Day Number,
+              widget: number,
+              value_type: int,
+              min: 1,
+            }
           - { name: title, label: Day Title, widget: string }
           - { name: description, label: Day Description, widget: text }
-      - { name: featured, label: Featured Cruise, widget: boolean, default: false }
+      - {
+          name: featured,
+          label: Featured Cruise,
+          widget: boolean,
+          default: false,
+        }
       - name: cabinTypes
         label: Cabin Options
         widget: list
@@ -148,7 +213,13 @@ collections:
             widget: number
             value_type: int
           - { name: description, label: Description, widget: string }
-      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - {
+          name: order,
+          label: Display Order,
+          widget: number,
+          value_type: int,
+          default: 0,
+        }
       - { name: body, label: Detailed Description, widget: markdown }
 
   # Small Group Tours
@@ -162,7 +233,13 @@ collections:
       - { name: title, label: Title, widget: string }
       - { name: description, label: Short Description, widget: text }
       - { name: duration, label: Duration, widget: string }
-      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - {
+          name: nights,
+          label: Number of Nights,
+          widget: number,
+          value_type: int,
+          min: 1,
+        }
       - name: price
         label: "Starting Price (EGP)"
         widget: number
@@ -174,7 +251,14 @@ collections:
         widget: list
         required: false
         field: { name: image, widget: image }
-      - { name: maxGroupSize, label: Maximum Group Size, widget: number, value_type: int, min: 1, max: 20 }
+      - {
+          name: maxGroupSize,
+          label: Maximum Group Size,
+          widget: number,
+          value_type: int,
+          min: 1,
+          max: 20,
+        }
       - name: highlights
         label: Tour Highlights
         widget: list
@@ -192,14 +276,31 @@ collections:
         label: Day by Day Itinerary
         widget: list
         fields:
-          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - {
+              name: day,
+              label: Day Number,
+              widget: number,
+              value_type: int,
+              min: 1,
+            }
           - { name: title, label: Day Title, widget: string }
           - { name: description, label: Day Description, widget: text }
-      - { name: featured, label: Featured Tour, widget: boolean, default: false }
+      - {
+          name: featured,
+          label: Featured Tour,
+          widget: boolean,
+          default: false,
+        }
       - name: nextDepartures
         label: Next Departure Dates
         widget: list
         required: false
         field: { name: date, widget: string }
-      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - {
+          name: order,
+          label: Display Order,
+          widget: number,
+          value_type: int,
+          default: 0,
+        }
       - { name: body, label: Detailed Description, widget: markdown }
