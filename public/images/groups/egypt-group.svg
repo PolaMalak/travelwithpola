@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#065586"/>
+      <stop offset="100%" style="stop-color:#c4923a"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#g1)" width="800" height="600"/>
+  <circle fill="#dba94f" cx="200" cy="300" r="35"/>
+  <circle fill="#c4923a" cx="280" cy="290" r="35"/>
+  <circle fill="#dba94f" cx="360" cy="300" r="35"/>
+  <circle fill="#c4923a" cx="440" cy="285" r="35"/>
+  <circle fill="#dba94f" cx="520" cy="300" r="35"/>
+  <circle fill="#c4923a" cx="600" cy="290" r="35"/>
+  <rect fill="#845d2c" x="180" y="335" width="40" height="70"/>
+  <rect fill="#845d2c" x="260" y="325" width="40" height="70"/>
+  <rect fill="#845d2c" x="340" y="335" width="40" height="70"/>
+  <rect fill="#845d2c" x="420" y="320" width="40" height="70"/>
+  <rect fill="#845d2c" x="500" y="335" width="40" height="70"/>
+  <rect fill="#845d2c" x="580" y="325" width="40" height="70"/>
+  <polygon fill="#6c4d27" points="100,600 400,300 700,600"/>
+  <text x="400" y="550" font-family="Georgia,serif" font-size="32" fill="white" text-anchor="middle">Small Group Tour</text>
+</svg>
+

@@ -1,0 +1,188 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReservationForm from '../../components/ReservationForm.astro';
+import Price from '../../components/Price.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const packages = await getCollection('packages');
+  return packages.map(pkg => ({
+    params: { slug: pkg.slug },
+    props: { pkg },
+  }));
+}
+
+const { pkg } = Astro.props;
+const { Content } = await pkg.render();
+---
+
+<BaseLayout 
+  title={pkg.data.title}
+  description={pkg.data.description}
+  image={pkg.data.image}
+>
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-0 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80 z-10"></div>
+      <img 
+        src={pkg.data.image} 
+        alt={pkg.data.title}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="max-w-3xl">
+        <a href="/packages" class="inline-flex items-center text-sand-300 hover:text-white mb-6 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Packages
+        </a>
+        
+        {pkg.data.featured && (
+          <span class="inline-block bg-gradient-to-r from-sand-500 to-sand-600 text-white px-4 py-1.5 rounded-full text-sm font-medium mb-4">
+            ✨ Featured Package
+          </span>
+        )}
+        
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-shadow-lg">
+          {pkg.data.title}
+        </h1>
+        
+        <p class="text-xl text-stone-200 mb-6">{pkg.data.description}</p>
+        
+        <div class="flex flex-wrap gap-4 items-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">Duration</div>
+            <div class="text-white font-semibold">{pkg.data.duration}</div>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">From</div>
+            <Price amount={pkg.data.price} class="text-white font-display text-2xl font-bold" />
+          </div>
+          <a href="#book" class="btn-gold ml-auto">
+            Book This Trip
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Content Section -->
+  <section class="py-16 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Highlights -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Trip Highlights</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {pkg.data.highlights.map(highlight => (
+                <div class="flex items-start">
+                  <svg class="w-6 h-6 text-nile-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-stone-700">{highlight}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Itinerary -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll" style="animation-delay: 100ms">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Day by Day Itinerary</h2>
+            <div class="space-y-6">
+              {pkg.data.itinerary.map((day, i) => (
+                <div class="relative pl-8 pb-6 border-l-2 border-nile-200 last:border-0 last:pb-0">
+                  <div class="absolute -left-3 top-0 w-6 h-6 bg-nile-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    {day.day}
+                  </div>
+                  <h3 class="font-display text-lg font-semibold text-stone-800 mb-2">{day.title}</h3>
+                  <p class="text-stone-600">{day.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Description from markdown -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg prose prose-lg max-w-none animate-on-scroll" style="animation-delay: 200ms">
+            <Content />
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-8">
+          <!-- Price Card -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg sticky top-24 animate-on-scroll">
+            <div class="text-center border-b border-stone-200 pb-6 mb-6">
+              <div class="text-stone-500 text-sm mb-1">Starting from</div>
+              <Price amount={pkg.data.price} class="font-display text-4xl font-bold text-nile-600" />
+              <div class="text-stone-500 text-sm">per person</div>
+            </div>
+            
+            <!-- What's Included -->
+            <div class="mb-6">
+              <h3 class="font-semibold text-stone-800 mb-3">What's Included</h3>
+              <ul class="space-y-2">
+                {pkg.data.included.map(item => (
+                  <li class="flex items-start text-sm">
+                    <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-stone-600">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            <!-- Not Included -->
+            {pkg.data.notIncluded && pkg.data.notIncluded.length > 0 && (
+              <div class="mb-6">
+                <h3 class="font-semibold text-stone-800 mb-3">Not Included</h3>
+                <ul class="space-y-2">
+                  {pkg.data.notIncluded.map(item => (
+                    <li class="flex items-start text-sm">
+                      <svg class="w-5 h-5 text-stone-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span class="text-stone-500">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            <a href="#book" class="btn-gold w-full text-center">
+              Book Now
+            </a>
+            
+            <div class="mt-4 flex items-center justify-center text-sm text-stone-500">
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              Secure booking
+            </div>
+          </div>
+          
+          <!-- Need Help -->
+          <div class="bg-nile-50 rounded-2xl p-6">
+            <h3 class="font-display text-lg font-semibold text-stone-800 mb-3">Need Help Deciding?</h3>
+            <p class="text-stone-600 text-sm mb-4">Our travel experts are here to answer your questions.</p>
+            <a href="https://wa.me/201234567890" target="_blank" rel="noopener" class="inline-flex items-center text-nile-600 font-medium hover:text-nile-700">
+              <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M17.47,14.38l-.01-.02c-.18-.09-1.05-.52-1.21-.58-.16-.06-.28-.09-.4.09-.12.18-.46.58-.56.7-.1.12-.21.14-.39.05-.18-.09-.75-.28-1.43-.89-.53-.47-.89-1.05-1-1.23-.1-.18-.01-.28.08-.37.08-.08.18-.21.27-.32.09-.1.12-.18.18-.3.06-.12.03-.22-.02-.31-.05-.09-.4-.97-.55-1.32-.14-.35-.29-.3-.4-.31-.1-.01-.22-.01-.34-.01-.12,0-.31.05-.47.22-.16.18-.62.61-.62,1.49s.64,1.73.73,1.85c.09.12,1.24,1.97,3.05,2.68.43.17.76.27,1.02.35.43.13.82.11,1.13.07.34-.05,1.05-.43,1.2-.85.15-.42.15-.77.1-.85-.05-.07-.17-.12-.35-.21Zm-5.48,7.49h-.01a9.87,9.87,0,0,1-5.03-1.38l-.36-.21-3.74.98.99-3.65-.24-.37a9.86,9.86,0,0,1,15.32-12.39,9.86,9.86,0,0,1-6.93,16.92v.1Zm8.4-18.27A11.82,11.82,0,0,0,2.05,19.16L0,24l4.97-1.3a11.83,11.83,0,0,0,5.65,1.44h.01A11.84,11.84,0,0,0,22.46,5.67,11.75,11.75,0,0,0,20.39,3.6Z"/></svg>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reservation Form -->
+  <ReservationForm tripTitle={pkg.data.title} tripType="Package" />
+</BaseLayout>
+

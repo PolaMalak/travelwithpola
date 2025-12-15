@@ -1,0 +1,18 @@
+{
+  "siteName": "TravelWithPola",
+  "tagline": "Discover Egypt's Timeless Wonders",
+  "email": "info@travelwithpola.com",
+  "phone": "+20 123 456 7890",
+  "whatsapp": "+20 123 456 7890",
+  "address": "Cairo, Egypt",
+  "socialLinks": {
+    "facebook": "https://facebook.com/travelwithpola",
+    "instagram": "https://instagram.com/travelwithpola",
+    "twitter": "",
+    "youtube": "https://youtube.com/travelwithpola"
+  },
+  "heroTitle": "Discover Egypt's Timeless Wonders",
+  "heroSubtitle": "Journey through ancient temples, sail the legendary Nile, and experience the magic of the pharaohs with TravelWithPola",
+  "heroImage": "/images/hero-pyramids.svg"
+}
+

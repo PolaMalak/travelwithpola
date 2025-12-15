@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#065586" width="800" height="600"/>
+  <rect fill="#c4923a" x="100" y="150" width="60" height="350"/>
+  <rect fill="#dba94f" x="200" y="120" width="60" height="380"/>
+  <rect fill="#c4923a" x="300" y="150" width="60" height="350"/>
+  <rect fill="#dba94f" x="400" y="120" width="60" height="380"/>
+  <rect fill="#c4923a" x="500" y="150" width="60" height="350"/>
+  <rect fill="#dba94f" x="600" y="120" width="60" height="380"/>
+  <rect fill="#845d2c" y="500" width="800" height="100"/>
+  <text x="400" y="560" font-family="Georgia,serif" font-size="32" fill="white" text-anchor="middle">Luxor Temple</text>
+</svg>
+

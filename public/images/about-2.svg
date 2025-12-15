@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <rect fill="#0c9feb" width="600" height="400"/>
+  <rect fill="white" x="150" y="150" width="300" height="150" rx="10"/>
+  <polygon fill="#f2ddb8" points="250,150 300,80 350,150"/>
+  <rect fill="#007fc9" y="300" width="600" height="100"/>
+  <text x="300" y="370" font-family="Georgia,serif" font-size="24" fill="white" text-anchor="middle">Nile Cruise</text>
+</svg>
+

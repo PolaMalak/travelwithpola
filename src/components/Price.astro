@@ -1,0 +1,13 @@
+---
+interface Props {
+  amount: number;
+  class?: string;
+}
+
+const { amount, class: className = '' } = Astro.props;
+---
+
+<span class={className} data-price-egp={amount}>
+  EGP {amount.toLocaleString()}
+</span>
+

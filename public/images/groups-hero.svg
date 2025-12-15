@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="desert" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0b476f"/>
+      <stop offset="50%" style="stop-color:#065586"/>
+      <stop offset="100%" style="stop-color:#c4923a"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#desert)" width="1920" height="1080"/>
+  <ellipse fill="#dba94f" cx="960" cy="900" rx="1400" ry="400"/>
+  <circle fill="#c4923a" cx="500" cy="600" r="40"/>
+  <circle fill="#c4923a" cx="600" cy="580" r="40"/>
+  <circle fill="#c4923a" cx="700" cy="600" r="40"/>
+  <circle fill="#c4923a" cx="800" cy="590" r="40"/>
+  <circle fill="#c4923a" cx="900" cy="600" r="40"/>
+  <rect fill="#845d2c" x="480" y="640" width="40" height="60"/>
+  <rect fill="#845d2c" x="580" y="620" width="40" height="60"/>
+  <rect fill="#845d2c" x="680" y="640" width="40" height="60"/>
+  <rect fill="#845d2c" x="780" y="630" width="40" height="60"/>
+  <rect fill="#845d2c" x="880" y="640" width="40" height="60"/>
+  <text x="960" y="950" font-family="Georgia,serif" font-size="48" fill="white" text-anchor="middle" opacity="0.7">Small Group Tours</text>
+</svg>
+

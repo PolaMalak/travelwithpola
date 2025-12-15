@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <rect fill="#0c9feb" width="800" height="600"/>
+  <ellipse fill="#007fc9" cx="400" cy="500" rx="500" ry="150"/>
+  <polygon fill="#f2ddb8" points="300,350 400,150 500,350"/>
+  <polygon fill="white" points="320,350 400,180 480,350"/>
+  <rect fill="#845d2c" x="280" y="350" width="240" height="80"/>
+  <rect fill="#c4923a" x="260" y="430" width="280" height="30"/>
+  <circle fill="#f2ddb8" cx="700" cy="80" r="40"/>
+  <text x="400" y="560" font-family="Georgia,serif" font-size="32" fill="white" text-anchor="middle">Luxury Dahabiya</text>
+</svg>
+

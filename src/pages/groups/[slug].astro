@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReservationForm from '../../components/ReservationForm.astro';
+import Price from '../../components/Price.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const groups = await getCollection('groups');
+  return groups.map(group => ({
+    params: { slug: group.slug },
+    props: { group },
+  }));
+}
+
+const { group } = Astro.props;
+const { Content } = await group.render();
+---
+
+<BaseLayout 
+  title={group.data.title}
+  description={group.data.description}
+  image={group.data.image}
+>
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-0 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80 z-10"></div>
+      <img 
+        src={group.data.image} 
+        alt={group.data.title}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="max-w-3xl">
+        <a href="/groups" class="inline-flex items-center text-sand-300 hover:text-white mb-6 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Group Tours
+        </a>
+        
+        <div class="flex items-center gap-4 mb-4">
+          <span class="bg-nile-600/80 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+            </svg>
+            Max {group.data.maxGroupSize} travelers
+          </span>
+        </div>
+        
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-shadow-lg">
+          {group.data.title}
+        </h1>
+        
+        <p class="text-xl text-stone-200 mb-6">{group.data.description}</p>
+        
+        <div class="flex flex-wrap gap-4 items-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">Duration</div>
+            <div class="text-white font-semibold">{group.data.duration}</div>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">From</div>
+            <Price amount={group.data.price} class="text-white font-display text-2xl font-bold" />
+          </div>
+          <a href="#book" class="btn-gold ml-auto">
+            Join This Tour
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Content Section -->
+  <section class="py-16 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Next Departures -->
+          {group.data.nextDepartures && group.data.nextDepartures.length > 0 && (
+            <div class="bg-gradient-to-r from-nile-600 to-nile-700 rounded-2xl p-8 text-white animate-on-scroll">
+              <h2 class="font-display text-2xl font-semibold mb-4">Upcoming Departure Dates</h2>
+              <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
+                {group.data.nextDepartures.map(date => (
+                  <div class="bg-white/20 backdrop-blur-sm rounded-xl px-4 py-3 text-center">
+                    <svg class="w-5 h-5 mx-auto mb-1 text-sand-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                    <span class="font-medium">{date}</span>
+                  </div>
+                ))}
+              </div>
+              <p class="mt-4 text-sm text-nile-200">* Subject to availability. Contact us for custom dates.</p>
+            </div>
+          )}
+          
+          <!-- Highlights -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Tour Highlights</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {group.data.highlights.map(highlight => (
+                <div class="flex items-start">
+                  <svg class="w-6 h-6 text-nile-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-stone-700">{highlight}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Itinerary -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll" style="animation-delay: 100ms">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Day by Day Itinerary</h2>
+            <div class="space-y-6">
+              {group.data.itinerary.map((day, i) => (
+                <div class="relative pl-8 pb-6 border-l-2 border-nile-200 last:border-0 last:pb-0">
+                  <div class="absolute -left-3 top-0 w-6 h-6 bg-nile-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    {day.day}
+                  </div>
+                  <h3 class="font-display text-lg font-semibold text-stone-800 mb-2">{day.title}</h3>
+                  <p class="text-stone-600">{day.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Description from markdown -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg prose prose-lg max-w-none animate-on-scroll" style="animation-delay: 200ms">
+            <Content />
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-8">
+          <!-- Price Card -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg sticky top-24 animate-on-scroll">
+            <div class="text-center border-b border-stone-200 pb-6 mb-6">
+              <div class="inline-flex items-center bg-sand-100 text-sand-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                Max {group.data.maxGroupSize} travelers
+              </div>
+              <div class="text-stone-500 text-sm mb-1">Starting from</div>
+              <Price amount={group.data.price} class="font-display text-4xl font-bold text-nile-600" />
+              <div class="text-stone-500 text-sm">per person</div>
+            </div>
+            
+            <!-- What's Included -->
+            <div class="mb-6">
+              <h3 class="font-semibold text-stone-800 mb-3">What's Included</h3>
+              <ul class="space-y-2">
+                {group.data.included.map(item => (
+                  <li class="flex items-start text-sm">
+                    <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-stone-600">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {group.data.notIncluded && group.data.notIncluded.length > 0 && (
+              <div class="mb-6">
+                <h3 class="font-semibold text-stone-800 mb-3">Not Included</h3>
+                <ul class="space-y-2">
+                  {group.data.notIncluded.map(item => (
+                    <li class="flex items-start text-sm">
+                      <svg class="w-5 h-5 text-stone-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span class="text-stone-500">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            <a href="#book" class="btn-gold w-full text-center">
+              Book Now
+            </a>
+            
+            <p class="text-center text-sm text-stone-500 mt-4">
+              ✓ Only {group.data.maxGroupSize} spots available
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reservation Form -->
+  <ReservationForm tripTitle={group.data.title} tripType="Small Group Tour" />
+</BaseLayout>
+

@@ -1,0 +1,101 @@
+---
+import Price from './Price.astro';
+import { useTranslations, getLocalizedPath, type Lang, defaultLang } from '../i18n/translations';
+
+interface Props {
+  title: string;
+  description: string;
+  duration: string;
+  nights: number;
+  price: number;
+  currency?: string;
+  image: string;
+  slug: string;
+  type: 'packages' | 'cruises' | 'groups';
+  featured?: boolean;
+  lang?: Lang;
+}
+
+const { 
+  title, 
+  description, 
+  duration, 
+  nights,
+  price, 
+  currency = 'EGP',
+  image, 
+  slug,
+  type,
+  featured = false,
+  lang = defaultLang
+} = Astro.props;
+
+const t = useTranslations(lang);
+const isRTL = lang === 'ar';
+const href = getLocalizedPath(`/${type}/${slug}`, lang);
+---
+
+<article class={`card group ${featured ? 'ring-2 ring-sand-400' : ''}`} dir={isRTL ? 'rtl' : 'ltr'}>
+  <div class="relative overflow-hidden aspect-[4/3]">
+    <img 
+      src={image} 
+      alt={title}
+      loading="lazy"
+      decoding="async"
+      class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-transparent"></div>
+    
+    {featured && (
+      <div class={`absolute top-4 ${isRTL ? 'right-4' : 'left-4'}`}>
+        <span class="bg-gradient-to-r from-sand-500 to-sand-600 text-white px-4 py-1.5 rounded-full text-sm font-medium shadow-lg">
+          ✨ {t('trip.featured')}
+        </span>
+      </div>
+    )}
+    
+    <div class={`absolute top-4 ${isRTL ? 'left-4' : 'right-4'}`}>
+      <span class="bg-white/90 backdrop-blur-sm text-stone-800 px-3 py-1.5 rounded-full text-sm font-medium">
+        {nights} {nights === 1 ? t('trip.night') : t('trip.nights')}
+      </span>
+    </div>
+    
+    <div class={`absolute bottom-4 ${isRTL ? 'right-4 left-4' : 'left-4 right-4'}`}>
+      <h3 class="font-display text-xl md:text-2xl font-bold text-white text-shadow mb-1 line-clamp-2">
+        {title}
+      </h3>
+      <p class={`text-sand-300 text-sm font-accent flex items-center ${isRTL ? 'flex-row-reverse' : ''}`}>
+        <svg class={`w-4 h-4 ${isRTL ? 'ml-1' : 'mr-1'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        {duration}
+      </p>
+    </div>
+  </div>
+  
+  <div class="p-6">
+    <p class="text-stone-600 line-clamp-2 mb-4">
+      {description}
+    </p>
+    
+    <div class={`flex items-center justify-between ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div class={isRTL ? 'text-right' : ''}>
+        <span class="text-stone-500 text-sm">{t('trip.from')}</span>
+        <div class="text-2xl font-display font-bold text-nile-600">
+          <Price amount={price} />
+        </div>
+        <span class="text-stone-500 text-xs">{t('trip.perPerson')}</span>
+      </div>
+      
+      <a 
+        href={href}
+        class={`btn-primary py-3 px-6 text-sm ${isRTL ? 'flex-row-reverse' : ''}`}
+      >
+        {t('trip.viewDetails')}
+        <svg class={`w-4 h-4 group-hover:translate-x-1 transition-transform ${isRTL ? 'mr-2 rotate-180 group-hover:-translate-x-1' : 'ml-2'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</article>

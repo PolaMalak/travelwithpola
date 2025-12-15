@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TripCard from '../../components/TripCard.astro';
+import { getCollection } from 'astro:content';
+
+const allCruises = await getCollection('cruises');
+const cruises = allCruises.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout 
+  title="Nile Cruises" 
+  description="Experience the magic of the Nile with our luxury cruise packages. Sail from Luxor to Aswan visiting ancient temples and enjoying 5-star hospitality."
+>
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-nile-900/90 via-nile-800/80 to-papyrus-50 z-10"></div>
+      <img 
+        src="/images/cruises-hero.svg" 
+        alt="Nile cruise ship"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="font-accent text-sand-300 text-xl italic mb-4 block">Sail the Legend</span>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-shadow-lg">
+        Cruise the Nile
+      </h1>
+      <p class="text-xl text-stone-200 max-w-2xl mx-auto">
+        Journey through ancient Egypt aboard a floating palace, watching magnificent temples rise from the riverbanks.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Why Cruise -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid md:grid-cols-4 gap-8 text-center">
+        <div class="animate-on-scroll">
+          <div class="w-14 h-14 bg-nile-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-nile-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-stone-800 mb-2">5-Star Comfort</h3>
+          <p class="text-stone-600 text-sm">Luxury cabins, gourmet dining, and pool on deck</p>
+        </div>
+        <div class="animate-on-scroll" style="animation-delay: 100ms">
+          <div class="w-14 h-14 bg-nile-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-nile-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-stone-800 mb-2">Iconic Temples</h3>
+          <p class="text-stone-600 text-sm">Visit Karnak, Edfu, Kom Ombo & Philae</p>
+        </div>
+        <div class="animate-on-scroll" style="animation-delay: 200ms">
+          <div class="w-14 h-14 bg-nile-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-nile-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-stone-800 mb-2">Expert Guides</h3>
+          <p class="text-stone-600 text-sm">Certified Egyptologists bring history alive</p>
+        </div>
+        <div class="animate-on-scroll" style="animation-delay: 300ms">
+          <div class="w-14 h-14 bg-nile-100 rounded-2xl flex items-center justify-center mx-auto mb-4 text-nile-600">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z" />
+            </svg>
+          </div>
+          <h3 class="font-display font-semibold text-stone-800 mb-2">All-Inclusive</h3>
+          <p class="text-stone-600 text-sm">Full board with entertainment included</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Cruises Grid -->
+  <section class="py-20 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12 animate-on-scroll">
+        <span class="section-subtitle">Choose Your Journey</span>
+        <h2 class="section-title">Our Nile Cruises</h2>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+        {cruises.map((cruise, i) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${i * 150}ms`}>
+            <TripCard
+              title={cruise.data.title}
+              description={cruise.data.description}
+              duration={cruise.data.duration}
+              nights={cruise.data.nights}
+              price={cruise.data.price}
+              currency={cruise.data.currency}
+              image={cruise.data.image}
+              slug={cruise.slug}
+              type="cruises"
+              featured={cruise.data.featured}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+  
+  <!-- Cruise Experience -->
+  <section class="py-20 bg-gradient-to-br from-nile-800 to-nile-900 text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10" style="background-image: url('/images/pattern.svg'); background-size: 150px;"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="animate-on-scroll">
+          <span class="font-accent text-sand-400 text-xl italic block mb-4">The Experience</span>
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Life Aboard</h2>
+          <p class="text-stone-300 text-lg mb-6 leading-relaxed">
+            Wake up to stunning views from your cabin window. Enjoy gourmet breakfast on the sun deck 
+            before visiting ancient temples with your expert guide. Return to the ship for a delicious 
+            lunch as you sail past palm-fringed villages and golden sand dunes.
+          </p>
+          <p class="text-stone-300 text-lg mb-8 leading-relaxed">
+            Afternoons bring more discoveries—or simply relax by the pool. Evenings feature 
+            entertainment, from traditional Nubian music to a galabeya party where you'll dress 
+            in Egyptian attire.
+          </p>
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <div class="font-display text-3xl font-bold text-sand-400">4-5★</div>
+              <div class="text-stone-400">Ship Standards</div>
+            </div>
+            <div>
+              <div class="font-display text-3xl font-bold text-sand-400">24/7</div>
+              <div class="text-stone-400">On-board Service</div>
+            </div>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-4 animate-on-scroll" style="animation-delay: 200ms">
+          <img src="/images/cruise-cabin.svg" alt="Cruise cabin" class="rounded-xl shadow-lg" loading="lazy" />
+          <img src="/images/cruise-dining.svg" alt="Cruise dining" class="rounded-xl shadow-lg mt-8" loading="lazy" />
+          <img src="/images/cruise-deck.svg" alt="Cruise deck" class="rounded-xl shadow-lg" loading="lazy" />
+          <img src="/images/cruise-view.svg" alt="Nile views" class="rounded-xl shadow-lg mt-8" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

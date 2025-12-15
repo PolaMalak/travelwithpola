@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ReservationForm from '../../components/ReservationForm.astro';
+import Price from '../../components/Price.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const cruises = await getCollection('cruises');
+  return cruises.map(cruise => ({
+    params: { slug: cruise.slug },
+    props: { cruise },
+  }));
+}
+
+const { cruise } = Astro.props;
+const { Content } = await cruise.render();
+---
+
+<BaseLayout 
+  title={cruise.data.title}
+  description={cruise.data.description}
+  image={cruise.data.image}
+>
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-0 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80 z-10"></div>
+      <img 
+        src={cruise.data.image} 
+        alt={cruise.data.title}
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div class="max-w-3xl">
+        <a href="/cruises" class="inline-flex items-center text-sand-300 hover:text-white mb-6 transition-colors">
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to Cruises
+        </a>
+        
+        <div class="flex items-center gap-4 mb-4">
+          {cruise.data.featured && (
+            <span class="bg-gradient-to-r from-sand-500 to-sand-600 text-white px-4 py-1.5 rounded-full text-sm font-medium">
+              ✨ Featured
+            </span>
+          )}
+          <span class="bg-nile-600/80 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-sm">
+            {cruise.data.shipName}
+          </span>
+        </div>
+        
+        <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 text-shadow-lg">
+          {cruise.data.title}
+        </h1>
+        
+        <p class="text-xl text-stone-200 mb-6">{cruise.data.description}</p>
+        
+        <div class="flex flex-wrap gap-4 items-center">
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">Duration</div>
+            <div class="text-white font-semibold">{cruise.data.duration}</div>
+          </div>
+          <div class="bg-white/20 backdrop-blur-sm rounded-xl px-5 py-3">
+            <div class="text-sand-300 text-sm">From</div>
+            <Price amount={cruise.data.price} class="text-white font-display text-2xl font-bold" />
+          </div>
+          <a href="#book" class="btn-gold ml-auto">
+            Book This Cruise
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Content Section -->
+  <section class="py-16 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- Highlights -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Cruise Highlights</h2>
+            <div class="grid sm:grid-cols-2 gap-4">
+              {cruise.data.highlights.map(highlight => (
+                <div class="flex items-start">
+                  <svg class="w-6 h-6 text-nile-600 mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span class="text-stone-700">{highlight}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Itinerary -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll" style="animation-delay: 100ms">
+            <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Sailing Itinerary</h2>
+            <div class="space-y-6">
+              {cruise.data.itinerary.map((day, i) => (
+                <div class="relative pl-8 pb-6 border-l-2 border-nile-200 last:border-0 last:pb-0">
+                  <div class="absolute -left-3 top-0 w-6 h-6 bg-nile-600 rounded-full flex items-center justify-center text-white text-sm font-bold">
+                    {day.day}
+                  </div>
+                  <h3 class="font-display text-lg font-semibold text-stone-800 mb-2">{day.title}</h3>
+                  <p class="text-stone-600">{day.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <!-- Cabin Types -->
+          {cruise.data.cabinTypes && cruise.data.cabinTypes.length > 0 && (
+            <div class="bg-white rounded-2xl p-8 shadow-lg animate-on-scroll" style="animation-delay: 150ms">
+              <h2 class="font-display text-2xl font-semibold text-stone-800 mb-6">Cabin Options</h2>
+              <div class="grid gap-4">
+                {cruise.data.cabinTypes.map(cabin => (
+                  <div class="flex items-center justify-between p-4 bg-papyrus-50 rounded-xl">
+                    <div>
+                      <h3 class="font-semibold text-stone-800">{cabin.name}</h3>
+                      <p class="text-stone-600 text-sm">{cabin.description}</p>
+                    </div>
+                    <div class="text-right">
+                      <Price amount={cabin.price} class="font-display text-xl font-bold text-nile-600" />
+                      <div class="text-stone-500 text-sm">per person</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          
+          <!-- Description from markdown -->
+          <div class="bg-white rounded-2xl p-8 shadow-lg prose prose-lg max-w-none animate-on-scroll" style="animation-delay: 200ms">
+            <Content />
+          </div>
+        </div>
+        
+        <!-- Sidebar -->
+        <div class="lg:col-span-1 space-y-8">
+          <!-- Price Card -->
+          <div class="bg-white rounded-2xl p-6 shadow-lg sticky top-24 animate-on-scroll">
+            <div class="text-center border-b border-stone-200 pb-6 mb-6">
+              <div class="inline-block bg-nile-100 text-nile-700 px-3 py-1 rounded-full text-sm font-medium mb-2">
+                {cruise.data.shipName}
+              </div>
+              <div class="text-stone-500 text-sm mb-1">Starting from</div>
+              <Price amount={cruise.data.price} class="font-display text-4xl font-bold text-nile-600" />
+              <div class="text-stone-500 text-sm">per person</div>
+            </div>
+            
+            <!-- What's Included -->
+            <div class="mb-6">
+              <h3 class="font-semibold text-stone-800 mb-3">What's Included</h3>
+              <ul class="space-y-2">
+                {cruise.data.included.map(item => (
+                  <li class="flex items-start text-sm">
+                    <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span class="text-stone-600">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            
+            {cruise.data.notIncluded && cruise.data.notIncluded.length > 0 && (
+              <div class="mb-6">
+                <h3 class="font-semibold text-stone-800 mb-3">Not Included</h3>
+                <ul class="space-y-2">
+                  {cruise.data.notIncluded.map(item => (
+                    <li class="flex items-start text-sm">
+                      <svg class="w-5 h-5 text-stone-400 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                      <span class="text-stone-500">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+            
+            <a href="#book" class="btn-gold w-full text-center">
+              Book Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Reservation Form -->
+  <ReservationForm tripTitle={cruise.data.title} tripType="Nile Cruise" />
+</BaseLayout>
+

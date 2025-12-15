@@ -1,0 +1,164 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TripCard from '../../components/TripCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPackages = await getCollection('packages');
+const packages = allPackages.sort((a, b) => a.data.order - b.data.order);
+
+const categories = [
+  { id: 'all', label: 'All Packages' },
+  { id: 'short', label: '1-2 Nights' },
+  { id: 'medium', label: '3-4 Nights' },
+  { id: 'long', label: '5+ Nights' },
+];
+---
+
+<BaseLayout 
+  title="Our Packages" 
+  description="Explore our curated Egypt tour packages from 1-night city escapes to comprehensive multi-day adventures. Find your perfect Egyptian experience."
+>
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 overflow-hidden">
+    <div class="absolute inset-0">
+      <div class="absolute inset-0 bg-gradient-to-b from-nile-900/90 via-nile-800/80 to-papyrus-50 z-10"></div>
+      <img 
+        src="/images/packages-hero.svg" 
+        alt="Egyptian temples"
+        class="w-full h-full object-cover"
+        loading="eager"
+      />
+    </div>
+    
+    <div class="relative z-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <span class="font-accent text-sand-300 text-xl italic mb-4 block">Choose Your Adventure</span>
+      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 text-shadow-lg">
+        Our Packages
+      </h1>
+      <p class="text-xl text-stone-200 max-w-2xl mx-auto">
+        From quick getaways to comprehensive adventures, find the perfect package for your Egyptian dream vacation.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Packages Grid -->
+  <section class="py-20 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Filter Tabs -->
+      <div class="flex flex-wrap justify-center gap-3 mb-12 animate-on-scroll">
+        {categories.map(cat => (
+          <button 
+            class="filter-btn px-6 py-2 rounded-full font-medium transition-all border-2 border-stone-300 text-stone-600 hover:border-nile-500 hover:text-nile-600 data-[active=true]:bg-nile-600 data-[active=true]:border-nile-600 data-[active=true]:text-white"
+            data-filter={cat.id}
+            data-active={cat.id === 'all' ? 'true' : 'false'}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+      
+      <!-- Packages -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="packages-grid">
+        {packages.map((pkg, i) => (
+          <div 
+            class="package-card animate-on-scroll" 
+            data-category={pkg.data.category}
+            data-nights={pkg.data.nights}
+            style={`animation-delay: ${i * 100}ms`}
+          >
+            <TripCard
+              title={pkg.data.title}
+              description={pkg.data.description}
+              duration={pkg.data.duration}
+              nights={pkg.data.nights}
+              price={pkg.data.price}
+              currency={pkg.data.currency}
+              image={pkg.data.image}
+              slug={pkg.slug}
+              type="packages"
+              featured={pkg.data.featured}
+            />
+          </div>
+        ))}
+      </div>
+      
+      <!-- Empty State -->
+      <div class="hidden text-center py-12" id="empty-state">
+        <svg class="w-16 h-16 text-stone-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p class="text-stone-500">No packages found in this category.</p>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Custom Trip CTA -->
+  <section class="py-16 bg-gradient-to-r from-sand-500 to-sand-600">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">
+        Can't Find the Perfect Package?
+      </h2>
+      <p class="text-white/90 text-lg mb-6">
+        We specialize in creating custom itineraries tailored to your interests, schedule, and budget.
+      </p>
+      <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-sand-600 bg-white rounded-full hover:bg-stone-100 transition-all duration-300 shadow-lg">
+        Create Custom Trip
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const packageCards = document.querySelectorAll('.package-card');
+  const emptyState = document.getElementById('empty-state');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Update active state
+      filterBtns.forEach(b => b.setAttribute('data-active', 'false'));
+      btn.setAttribute('data-active', 'true');
+      
+      const filter = btn.getAttribute('data-filter');
+      let visibleCount = 0;
+      
+      packageCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const nights = parseInt(card.getAttribute('data-nights') || '0');
+        
+        let show = false;
+        
+        if (filter === 'all') {
+          show = true;
+        } else if (filter === 'short') {
+          show = nights <= 2;
+        } else if (filter === 'medium') {
+          show = nights >= 3 && nights <= 4;
+        } else if (filter === 'long') {
+          show = nights >= 5;
+        } else {
+          show = category === filter;
+        }
+        
+        if (show) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+      
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
+    });
+  });
+</script>
+

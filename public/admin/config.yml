@@ -1,0 +1,192 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: public/images
+public_folder: /images
+
+site_url: https://travelwithpola.netlify.app
+display_url: https://travelwithpola.netlify.app
+logo_url: /images/logo.svg
+
+collections:
+  # Site Settings
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: General Settings
+        file: src/content/settings/site.json
+        fields:
+          - { name: siteName, label: Site Name, widget: string }
+          - { name: tagline, label: Tagline, widget: string }
+          - { name: email, label: Email, widget: string }
+          - { name: phone, label: Phone, widget: string }
+          - { name: whatsapp, label: WhatsApp Number, widget: string, required: false }
+          - { name: address, label: Address, widget: string }
+          - name: socialLinks
+            label: Social Links
+            widget: object
+            fields:
+              - { name: facebook, label: Facebook URL, widget: string, required: false }
+              - { name: instagram, label: Instagram URL, widget: string, required: false }
+              - { name: twitter, label: Twitter URL, widget: string, required: false }
+              - { name: youtube, label: YouTube URL, widget: string, required: false }
+          - { name: heroTitle, label: Hero Title, widget: string }
+          - { name: heroSubtitle, label: Hero Subtitle, widget: text }
+          - { name: heroImage, label: Hero Image, widget: image }
+
+  # Tour Packages
+  - name: packages
+    label: Tour Packages
+    label_singular: Package
+    folder: src/content/packages
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Short Description, widget: text }
+      - { name: duration, label: Duration (e.g., "2 Nights / 3 Days"), widget: string }
+      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - { name: currency, label: Currency, widget: string, default: EGP }
+      - { name: image, label: Main Image, widget: image }
+      - name: gallery
+        label: Gallery Images
+        widget: list
+        required: false
+        field: { name: image, widget: image }
+      - name: highlights
+        label: Trip Highlights
+        widget: list
+        field: { name: highlight, widget: string }
+      - name: included
+        label: What's Included
+        widget: list
+        field: { name: item, widget: string }
+      - name: notIncluded
+        label: Not Included
+        widget: list
+        required: false
+        field: { name: item, widget: string }
+      - name: itinerary
+        label: Day by Day Itinerary
+        widget: list
+        fields:
+          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - { name: title, label: Day Title, widget: string }
+          - { name: description, label: Day Description, widget: text }
+      - { name: featured, label: Featured Package, widget: boolean, default: false }
+      - name: category
+        label: Category
+        widget: select
+        options:
+          - { label: "Short (1-2 nights)", value: short }
+          - { label: "Medium (3-4 nights)", value: medium }
+          - { label: "Long (5+ nights)", value: long }
+      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - { name: body, label: Detailed Description, widget: markdown }
+
+  # Nile Cruises
+  - name: cruises
+    label: Nile Cruises
+    label_singular: Cruise
+    folder: src/content/cruises
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Short Description, widget: text }
+      - { name: duration, label: Duration, widget: string }
+      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - { name: currency, label: Currency, widget: string, default: EGP }
+      - { name: image, label: Main Image, widget: image }
+      - name: gallery
+        label: Gallery Images
+        widget: list
+        required: false
+        field: { name: image, widget: image }
+      - { name: shipName, label: Ship Name, widget: string }
+      - name: highlights
+        label: Cruise Highlights
+        widget: list
+        field: { name: highlight, widget: string }
+      - name: included
+        label: What's Included
+        widget: list
+        field: { name: item, widget: string }
+      - name: notIncluded
+        label: Not Included
+        widget: list
+        required: false
+        field: { name: item, widget: string }
+      - name: itinerary
+        label: Sailing Itinerary
+        widget: list
+        fields:
+          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - { name: title, label: Day Title, widget: string }
+          - { name: description, label: Day Description, widget: text }
+      - { name: featured, label: Featured Cruise, widget: boolean, default: false }
+      - name: cabinTypes
+        label: Cabin Options
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: Cabin Type Name, widget: string }
+          - { name: price, label: Price (EGP), widget: number, value_type: int }
+          - { name: description, label: Description, widget: string }
+      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - { name: body, label: Detailed Description, widget: markdown }
+
+  # Small Group Tours
+  - name: groups
+    label: Small Group Tours
+    label_singular: Group Tour
+    folder: src/content/groups
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: description, label: Short Description, widget: text }
+      - { name: duration, label: Duration, widget: string }
+      - { name: nights, label: Number of Nights, widget: number, value_type: int, min: 1 }
+      - { name: price, label: Starting Price (EGP), widget: number, value_type: int }
+      - { name: currency, label: Currency, widget: string, default: EGP }
+      - { name: image, label: Main Image, widget: image }
+      - name: gallery
+        label: Gallery Images
+        widget: list
+        required: false
+        field: { name: image, widget: image }
+      - { name: maxGroupSize, label: Maximum Group Size, widget: number, value_type: int, min: 1, max: 20 }
+      - name: highlights
+        label: Tour Highlights
+        widget: list
+        field: { name: highlight, widget: string }
+      - name: included
+        label: What's Included
+        widget: list
+        field: { name: item, widget: string }
+      - name: notIncluded
+        label: Not Included
+        widget: list
+        required: false
+        field: { name: item, widget: string }
+      - name: itinerary
+        label: Day by Day Itinerary
+        widget: list
+        fields:
+          - { name: day, label: Day Number, widget: number, value_type: int, min: 1 }
+          - { name: title, label: Day Title, widget: string }
+          - { name: description, label: Day Description, widget: text }
+      - { name: featured, label: Featured Tour, widget: boolean, default: false }
+      - name: nextDepartures
+        label: Next Departure Dates
+        widget: list
+        required: false
+        field: { name: date, widget: string }
+      - { name: order, label: Display Order, widget: number, value_type: int, default: 0 }
+      - { name: body, label: Detailed Description, widget: markdown }
+

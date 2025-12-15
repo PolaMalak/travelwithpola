@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="p3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0b476f"/>
+      <stop offset="50%" style="stop-color:#c4923a"/>
+      <stop offset="100%" style="stop-color:#dba94f"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#p3)" width="800" height="600"/>
+  <polygon fill="#845d2c" points="50,350 150,200 250,350"/>
+  <rect fill="#dba94f" x="300" y="200" width="40" height="200"/>
+  <rect fill="#c4923a" x="360" y="180" width="40" height="220"/>
+  <rect fill="#0c9feb" x="500" y="250" width="250" height="150" rx="10"/>
+  <polygon fill="white" points="580,250 620,180 660,250"/>
+  <rect fill="#845d2c" y="400" width="800" height="200"/>
+  <text x="400" y="520" font-family="Georgia,serif" font-size="32" fill="white" text-anchor="middle">Complete Egypt</text>
+</svg>
+

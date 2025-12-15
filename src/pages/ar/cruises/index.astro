@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TripCard from '../../../components/TripCard.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../../i18n/translations';
+
+const lang: Lang = 'ar';
+const t = useTranslations(lang);
+
+const cruises = await getCollection('cruises');
+const sortedCruises = cruises.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout 
+  title={t('cruises.title')}
+  description="سافر عبر مصر القديمة على متن قصر عائم. رحلات نيلية فاخرة مع TravelWithPola."
+  lang={lang}
+>
+  <!-- Hero -->
+  <section class="relative py-32 bg-gradient-to-br from-nile-900 via-nile-800 to-stone-900" dir="rtl">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/pattern.svg'); background-size: 150px;"></div>
+    <div class="absolute inset-0"><img src="/images/cruises-hero.svg" alt="" class="w-full h-full object-cover opacity-30" /></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <span class="section-subtitle text-sand-400">{t('cruises.subtitle')}</span>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">{t('cruises.title')}</h1>
+      <p class="text-xl text-stone-300 max-w-2xl mx-auto">{t('cruises.description')}</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-12 bg-white border-b" dir="rtl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div><div class="w-12 h-12 bg-nile-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-nile-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg></div><h3 class="font-semibold text-stone-800">{t('cruises.comfort')}</h3><p class="text-sm text-stone-500">{t('cruises.comfortDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-sand-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-sand-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg></div><h3 class="font-semibold text-stone-800">{t('cruises.temples')}</h3><p class="text-sm text-stone-500">{t('cruises.templesDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-nile-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-nile-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div><h3 class="font-semibold text-stone-800">{t('cruises.guides')}</h3><p class="text-sm text-stone-500">{t('cruises.guidesDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-sand-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-sand-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><h3 class="font-semibold text-stone-800">{t('cruises.inclusive')}</h3><p class="text-sm text-stone-500">{t('cruises.inclusiveDesc')}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cruises Grid -->
+  <section class="py-20 bg-papyrus-50" dir="rtl">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12"><span class="section-subtitle">{t('cruises.choose')}</span><h2 class="section-title">{t('cruises.ourCruises')}</h2></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {sortedCruises.map((cruise, i) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${i * 100}ms`}>
+            <TripCard title={cruise.data.title} description={cruise.data.description} duration={cruise.data.duration} nights={cruise.data.nights} price={cruise.data.price} currency={cruise.data.currency} image={cruise.data.image} slug={cruise.slug} type="cruises" featured={cruise.data.featured} lang={lang} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

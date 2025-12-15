@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="contact" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0b476f"/>
+      <stop offset="100%" style="stop-color:#0c9feb"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#contact)" width="1920" height="1080"/>
+  <rect fill="#c4923a" x="700" y="300" width="520" height="400" rx="20"/>
+  <rect fill="white" x="750" y="350" width="420" height="80" rx="10"/>
+  <rect fill="white" x="750" y="450" width="420" height="80" rx="10"/>
+  <rect fill="#dba94f" x="750" y="560" width="420" height="80" rx="10"/>
+  <text x="960" y="950" font-family="Georgia,serif" font-size="48" fill="white" text-anchor="middle" opacity="0.7">Contact Us</text>
+</svg>
+

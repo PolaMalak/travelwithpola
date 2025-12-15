@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TripCard from '../../../components/TripCard.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../../i18n/translations';
+
+const lang: Lang = 'es';
+const t = useTranslations(lang);
+const basePath = '/es';
+
+const packages = await getCollection('packages');
+const sortedPackages = packages.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout 
+  title={t('packages.title')}
+  description="Desde escapadas rápidas hasta aventuras completas, encuentra el paquete perfecto para tus vacaciones soñadas en Egipto."
+  lang={lang}
+>
+  <!-- Hero -->
+  <section class="relative py-32 bg-gradient-to-br from-nile-900 via-nile-800 to-stone-900">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/pattern.svg'); background-size: 150px;"></div>
+    <div class="absolute inset-0"><img src="/images/packages-hero.svg" alt="" class="w-full h-full object-cover opacity-30" /></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <span class="section-subtitle text-sand-400">{t('packages.subtitle')}</span>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">{t('packages.title')}</h1>
+      <p class="text-xl text-stone-300 max-w-2xl mx-auto">{t('packages.description')}</p>
+    </div>
+  </section>
+
+  <!-- Packages Grid -->
+  <section class="py-20 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {sortedPackages.map((pkg, i) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${i * 100}ms`}>
+            <TripCard
+              title={pkg.data.title}
+              description={pkg.data.description}
+              duration={pkg.data.duration}
+              nights={pkg.data.nights}
+              price={pkg.data.price}
+              currency={pkg.data.currency}
+              image={pkg.data.image}
+              slug={pkg.slug}
+              type="packages"
+              featured={pkg.data.featured}
+              lang={lang}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Custom Trip CTA -->
+  <section class="py-16 bg-gradient-to-r from-nile-600 to-nile-700">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-display text-3xl font-bold text-white mb-4">{t('packages.customTrip')}</h2>
+      <p class="text-nile-100 mb-8">{t('packages.customDesc')}</p>
+      <a href={`${basePath}/contact`} class="btn-gold">{t('packages.createCustom')}</a>
+    </div>
+  </section>
+</BaseLayout>
+

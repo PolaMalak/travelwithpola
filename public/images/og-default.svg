@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="og" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#0b476f"/>
+      <stop offset="100%" style="stop-color:#c4923a"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#og)" width="1200" height="630"/>
+  <polygon fill="#845d2c" points="200,450 400,250 600,450"/>
+  <polygon fill="#6c4d27" points="400,450 600,200 800,450"/>
+  <polygon fill="#845d2c" points="600,450 850,150 1100,450"/>
+  <circle fill="#f2ddb8" cx="1000" cy="100" r="50"/>
+  <rect fill="#dba94f" y="450" width="1200" height="180"/>
+  <text x="600" y="540" font-family="Georgia,serif" font-size="64" fill="white" text-anchor="middle" font-weight="bold">TravelWithPola</text>
+  <text x="600" y="590" font-family="Georgia,serif" font-size="28" fill="white" text-anchor="middle" opacity="0.9">Discover Egypt</text>
+</svg>
+

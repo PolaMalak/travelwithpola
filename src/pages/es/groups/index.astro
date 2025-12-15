@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TripCard from '../../../components/TripCard.astro';
+import Price from '../../../components/Price.astro';
+import { getCollection } from 'astro:content';
+import { useTranslations, type Lang } from '../../../i18n/translations';
+
+const lang: Lang = 'es';
+const t = useTranslations(lang);
+
+const groups = await getCollection('groups');
+const sortedGroups = groups.sort((a, b) => a.data.order - b.data.order);
+---
+
+<BaseLayout 
+  title={t('groups.title')}
+  description="Únete a viajeros afines de todo el mundo en aventuras íntimas por el antiguo Egipto."
+  lang={lang}
+>
+  <!-- Hero -->
+  <section class="relative py-32 bg-gradient-to-br from-nile-900 via-nile-800 to-stone-900">
+    <div class="absolute inset-0 opacity-20" style="background-image: url('/images/pattern.svg'); background-size: 150px;"></div>
+    <div class="absolute inset-0"><img src="/images/groups-hero.svg" alt="" class="w-full h-full object-cover opacity-30" /></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+      <span class="section-subtitle text-sand-400">{t('groups.subtitle')}</span>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-6">{t('groups.title')}</h1>
+      <p class="text-xl text-stone-300 max-w-2xl mx-auto">{t('groups.description')}</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-12 bg-white border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div><div class="w-12 h-12 bg-nile-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-nile-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg></div><h3 class="font-semibold text-stone-800">12 {t('groups.maxTravelers')}</h3><p class="text-sm text-stone-500">{t('groups.maxDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-sand-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-sand-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg></div><h3 class="font-semibold text-stone-800">{t('groups.newFriends')}</h3><p class="text-sm text-stone-500">{t('groups.newFriendsDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-nile-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-nile-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg></div><h3 class="font-semibold text-stone-800">{t('groups.expertLeaders')}</h3><p class="text-sm text-stone-500">{t('groups.expertDesc')}</p></div>
+        <div><div class="w-12 h-12 bg-sand-100 rounded-xl flex items-center justify-center mx-auto mb-3 text-sand-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div><h3 class="font-semibold text-stone-800">{t('groups.greatValue')}</h3><p class="text-sm text-stone-500">{t('groups.valueDesc')}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Groups Grid -->
+  <section class="py-20 bg-papyrus-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12"><span class="section-subtitle">{t('groups.joinAdventure')}</span><h2 class="section-title">{t('groups.upcoming')}</h2></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {sortedGroups.map((group, i) => (
+          <div class="animate-on-scroll" style={`animation-delay: ${i * 100}ms`}>
+            <TripCard title={group.data.title} description={group.data.description} duration={group.data.duration} nights={group.data.nights} price={group.data.price} currency={group.data.currency} image={group.data.image} slug={group.slug} type="groups" featured={group.data.featured} lang={lang} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

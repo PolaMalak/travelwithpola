@@ -1,0 +1,12 @@
+# TravelWithPola robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://travelwithpola.netlify.app/sitemap-index.xml
+
+# Block admin area from search engines
+User-agent: *
+Disallow: /admin/
+

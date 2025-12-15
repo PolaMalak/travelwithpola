@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#9b6d3a"/>
+      <stop offset="100%" style="stop-color:#c4923a"/>
+    </linearGradient>
+  </defs>
+  <rect fill="url(#g2)" width="800" height="600"/>
+  <circle fill="#f2ddb8" cx="250" cy="280" r="40"/>
+  <circle fill="#e5d3a5" cx="350" cy="270" r="40"/>
+  <circle fill="#f2ddb8" cx="450" cy="280" r="40"/>
+  <circle fill="#e5d3a5" cx="550" cy="270" r="40"/>
+  <rect fill="#845d2c" x="230" y="320" width="40" height="80"/>
+  <rect fill="#845d2c" x="330" y="310" width="40" height="80"/>
+  <rect fill="#845d2c" x="430" y="320" width="40" height="80"/>
+  <rect fill="#845d2c" x="530" y="310" width="40" height="80"/>
+  <rect fill="#dba94f" x="150" y="450" width="500" height="100" rx="20"/>
+  <text x="400" y="510" font-family="Georgia,serif" font-size="28" fill="white" text-anchor="middle">Women's Egypt Adventure</text>
+</svg>
+
